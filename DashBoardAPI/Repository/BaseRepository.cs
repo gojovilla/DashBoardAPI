@@ -19,9 +19,7 @@ namespace DashBoardAPI.Repository
         private readonly ConnectionStrings _connectionStrings;
         private readonly IConfiguration _iConfig;
 
-        /// <summary>
-        /// Constructor to init MySQL connection
-        /// </summary>
+     
         public BaseRepository(IOptions<ConnectionStrings> connectionStrings,
             IConfiguration iConfig)
         {
@@ -32,7 +30,9 @@ namespace DashBoardAPI.Repository
             string database = _iConfig.GetSection("ConnectionStrings:Database").Value;
             string userName = _iConfig.GetSection("ConnectionStrings:UserName").Value;
             string password = _iConfig.GetSection("ConnectionStrings:Password").Value;
-            string connectionString = $"server={dataSource};database={database};user={userName};password={password};"/* $"server={dataSource};port=3306;database={database};user={userName};password={password};"*/;
+           // string connectionString = $"server={dataSource};database={database};user={userName};password={password};"/* $"server={dataSource};port=3306;database={database};user={userName};password={password};"*/;
+      string connectionString= $"Server=localhost\\SQLEXPRESS;Database=Sandhya_API;Trusted_Connection=True;TrustServerCertificate=True";
+
             _connection = new SqlConnection(connectionString);
             //_connection = new MySqlConnection(connectionStrings.Value.Dev);
         }
@@ -551,5 +551,11 @@ namespace DashBoardAPI.Repository
 
         //    return returnObj;
         //}
+
+
+    }
+    public class ConnectionStrings
+    {
+        public string DefaultConnection { get; set; }
     }
 }

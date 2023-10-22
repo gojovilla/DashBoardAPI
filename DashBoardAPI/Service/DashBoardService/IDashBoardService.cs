@@ -4,6 +4,7 @@ namespace DashBoardAPI.Service.DashBoardService
 {
     public interface IDashBoardService
     {
-        List<DashBoardEntity> GetDashBoardData();
+        JsonResponseEntity GetDashboardData();
+        JsonResponseEntity InsertBulkUploadLocationData(DashBoardEntity objentity);
     }
 }

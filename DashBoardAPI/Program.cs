@@ -5,9 +5,10 @@ using DashBoardAPI.Repository;
 using DashBoardAPI.Service.DashBoardService;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 
+ 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -16,10 +17,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<DataContext>(options=>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+//builder.Services.AddDbContext<DataContext>(options=>
+//{
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+//});
+builder.Services.Configure<ConnectionStrings>(builder.Configuration.GetSection("ConnectionStrings")); 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped<IDashBoardService, DashBoardService>();
 builder.Services.AddOptions();
