@@ -22,7 +22,7 @@ namespace DashBoardAPI.Controllers
         }
 
 
-
+        #region GetDashBoardData
         [HttpGet(Name = "GetDashBoardData")]
         public JsonResponseEntity GetDashBoardData()
         {
@@ -31,7 +31,7 @@ namespace DashBoardAPI.Controllers
             {
                
                 var data = _dashBoardservice.GetDashboardData();
-
+                
                 if (data != null)
                 {
                     apiResponse.Status = ApiStatus.OK;
@@ -54,10 +54,10 @@ namespace DashBoardAPI.Controllers
             }
             return apiResponse;
         }
-
+        #endregion
         #region API Upload Dashboard Data
         [HttpPost(Name="UploadBulkLocationDetails")]
-        public JsonResponseEntity UploadBulkLocationDetails(IFormFile file)
+        public JsonResponseEntity UploadBulkLocationDetails([FromForm]IFormFile file)
         {
             JsonResponseEntity apiResponse = new JsonResponseEntity();
             try
@@ -241,16 +241,16 @@ namespace DashBoardAPI.Controllers
                     string BRemark = worksheet.Cells[row, col].Value?.ToString() ?? ""; col++;
                     string BIsActive = worksheet.Cells[row, col].Value?.ToString() ?? ""; col++;
                     #endregion
-                    #region Location
-                    if (string.IsNullOrEmpty(BName))
-                    {
-                        validationError.Add($"Payment sheet error : Name is empty at row {row}");
-                    }
-                    if (!BName.All(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c)))
-                    {
-                        validationError.Add($"Paymeny sheet error : Name  is contains special characters at row {row}");
-                    }
-                    #endregion
+                    //#region Location
+                    //if (string.IsNullOrEmpty(BName))
+                    //{
+                    //    validationError.Add($"Payment sheet error : Name is empty at row {row}");
+                    //}
+                    //if (!BName.All(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c)))
+                    //{
+                    //    validationError.Add($"Paymeny sheet error : Name  is contains special characters at row {row}");
+                    //}
+                    //#endregion
                     //#region Code
                     //if (string.IsNullOrEmpty(BCode))
                     //{
@@ -295,6 +295,10 @@ namespace DashBoardAPI.Controllers
                 throw ex;
             }
         }
+
+        #endregion
+
+        #region Export To Excel
 
         #endregion
     }

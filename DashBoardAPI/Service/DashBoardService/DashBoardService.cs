@@ -26,6 +26,10 @@ namespace DashBoardAPI.Service.DashBoardService
                 SqlCommand command = new SqlCommand("stpGetDashBoardData");
                 command.CommandType = CommandType.StoredProcedure;
                 List<DashBoardEntity> getdata = _DashBoardRepository.GetRecords(command).ToList();
+                foreach(var item in getdata)
+                {
+                    item.Dates = DateTime.Now.ToString("MM/dd/yyyy");
+                }
                 Jsonmodel.Data = getdata;
                 Jsonmodel.Message = "Success";
                 Jsonmodel.Status = ApiStatus.OK;
